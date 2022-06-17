@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage("build maven") {
+        stage("checking Maven version") {
             steps {
-                sh "mvn clean compile"
+                sh "mvn --version"
             }
         }
-        stage("package") {
+        stage("Clean the Target first") {
             steps {
-                sh "mvn package"
+                sh "mvn clean"
             }
         }
  
