@@ -1,17 +1,35 @@
 pipeline {
-    agent none 
+    agent any
+
     stages {
-        stage('Example Build') {
-            steps {
-                echo 'Hello, Maven'
-                sh 'mvn clean'
+ //       stage('git checkout') {
+ //           steps {
+ //               git 'https://github.com/surajss2/maven-webapp_Helloworld.git'
             }
         }
-        stage('Example package') 
+        
+    //    stage('reading pom.xml file') {
+    //        steps {
+    //          readMavenPom file: 'my-app/pom.xml'
+    //        }
+    //  }
+        stage("build maven") {
             steps {
-                echo 'Hello, Maven'
-                sh 'mvn package'
+                sh "mvn clean compile"
             }
         }
+        stage("package") {
+            steps {
+                sh "mvn package"
+            }
+        }
+ //       stage("Deploy") {
+ //           steps {
+ //               deploy adapters: [tomcat8(credentialsId: 'tomcat_local', path: '', url: 'http://localhost:8082')], contextPath: '/webapp', war: 'target/*.war'
+ //           }    
+ //       }
     }
+    
 }
+
+
